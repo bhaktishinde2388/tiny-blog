@@ -21,7 +21,7 @@ const connectDB = async ()=>{
     console.log("mongodb crashed❌",err)
 }}
 
-
+//health api
 app.get('/',(req,res)=>{
    res.json({
     success:true,
