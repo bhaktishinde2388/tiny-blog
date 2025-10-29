@@ -23,7 +23,7 @@ const connectDB = async ()=>{
 }}
 //api's
 app.post("/signup",postSignup)
-app.post("login",postLogin)
+app.post("/login",postLogin)
 
 //health api
 app.get('/',(req,res)=>{

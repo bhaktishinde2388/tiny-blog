@@ -7,7 +7,7 @@ const postSignup = async (req,res)=>{
     const nameValidationByRegex = /^[A-Za-z]+(?:[ -'][A-Za-z]+)*$/;
     const emailValidationByRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const passwordValidationByRegex=/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    
+
              //name regex logic
     if(nameValidationByRegex.test(name)===false){
         return res.status(400).json({
@@ -72,6 +72,29 @@ const postSignup = async (req,res)=>{
     });
 };
 
-const postLogin = (req,res)=>{};
+
+
+const postLogin = async (req,res)=>{
+    const {email,password}=req.body;
+
+
+
+    const existingUser=await User.findOne({email,password});
+    if(existingUser){
+        return res.json({
+            success:true,
+            message:"User Login Successfully",
+            user:existingUser,
+        });
+    }else{
+         return res.status(400).json({
+            success:false,
+            message:"Invalid email or password",
+        });
+
+    }
+
+  
+};
 
 export {postSignup,postLogin}
