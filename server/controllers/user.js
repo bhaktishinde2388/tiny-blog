@@ -3,6 +3,28 @@ import User from "../models/User.js";
 const postSignup = async (req,res)=>{
     const{name,email,password} = req.body; //taking info from req body
 
+    //validations
+    if(!name){
+        return res.status(400).json({
+            success:false,
+            message:"name is required"
+        });
+    }
+
+    if(!email){
+        return res.status(400).json({
+            success:false,
+            Message:"email is required"
+        });
+    }
+
+    if(!password){
+        return res.status(400).json({
+         success:false,
+         Message:"password is requird"
+        })
+    }
+
     //existanes message showing
     const existingUser = await User.findOne({email});
     if(existingUser){
@@ -11,6 +33,7 @@ const postSignup = async (req,res)=>{
             message:`this email ${email} already exists`
         })
     }
+
 
     const newUser = User({name,email,password})  //user model
 
