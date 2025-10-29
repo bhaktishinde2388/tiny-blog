@@ -77,7 +77,12 @@ const postSignup = async (req,res)=>{
 const postLogin = async (req,res)=>{
     const {email,password}=req.body;
 
-
+if(!email || !password){
+    res.status(400).json({
+        success:false,
+        message:"email and password both is required"
+    })
+}
 
     const existingUser=await User.findOne({email,password});
     if(existingUser){
