@@ -92,7 +92,7 @@ if(!email || !password){
             user:existingUser,
         });
     }else{
-         return res.status(400).json({
+         return res.status(401).json({
             success:false,
             message:"Invalid email or password",
         });
