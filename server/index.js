@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import { postSignup, postLogin } from "./controllers/user.js";
 
 dotenv.config();
 
@@ -20,6 +21,9 @@ const connectDB = async ()=>{
 {
     console.log("mongodb crashed❌",err)
 }}
+//api's
+app.post("/signup",postSignup)
+app.post("login",postLogin)
 
 //health api
 app.get('/',(req,res)=>{
