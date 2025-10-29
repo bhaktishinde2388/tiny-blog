@@ -3,7 +3,34 @@ import User from "../models/User.js";
 const postSignup = async (req,res)=>{
     const{name,email,password} = req.body; //taking info from req body
 
-    //validations
+    //regex.....................
+    const nameValidationByRegex = /^[A-Za-z]+(?:[ -'][A-Za-z]+)*$/;
+    const emailValidationByRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordValidationByRegex=/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    
+             //name regex logic
+    if(nameValidationByRegex.test(name)===false){
+        return res.status(400).json({
+            success:false,
+            message:"name shoud contain only alphabet and spaces"
+        });
+    }
+                //email regex logic
+        if(emailValidationByRegex.test(email)===false){
+        return res.status(400).json({
+            success:false,
+            message:"Invalid email format. Email must include '@' and a domain like example@gmail.com"
+        });
+    }
+                 //password regex logic
+    if(passwordValidationByRegex.test(password)===false){
+        return res.status(400).json({
+            success:false,
+            message:" Password must be at least 8 characters long and include: one uppercase letter, one lowercase letter, one number, and one special character (@$!%*?&)"
+        });
+    }
+
+    //validations.................................
     if(!name){
         return res.status(400).json({
             success:false,
@@ -33,7 +60,6 @@ const postSignup = async (req,res)=>{
             message:`this email ${email} already exists`
         })
     }
-
 
     const newUser = User({name,email,password})  //user model
 
