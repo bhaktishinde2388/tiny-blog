@@ -61,7 +61,7 @@ const postSignup = async (req,res)=>{
         })
     }
 
-    const newUser = User({name,email,password})  //user model
+    const newUser = new User({name,email,password})  //user model
 
     const savedUser = await newUser.save(); //save user
 
